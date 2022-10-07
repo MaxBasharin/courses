@@ -533,13 +533,20 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"bB7Pu":[function(require,module,exports) {
 var _selectJs = require("./select/select.js");
-const select = new (0, _selectJs.Select)();
+var _stylesScss = require("./select/styles.scss");
+const select = new (0, _selectJs.Select)("#select", {});
 
-},{"./select/select.js":"izWns"}],"izWns":[function(require,module,exports) {
+},{"./select/select.js":"izWns","./select/styles.scss":"i3B2h"}],"izWns":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Select", ()=>Select);
 class Select {
+    constructor(selector, options){
+        this.$el = document.querySelector(selector) //$ DOM элемент
+        ;
+    }
+    open() {}
+    close() {}
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
@@ -572,6 +579,6 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["awEvQ","bB7Pu"], "bB7Pu", "parcelRequire94c2")
+},{}],"i3B2h":[function() {},{}]},["awEvQ","bB7Pu"], "bB7Pu", "parcelRequire94c2")
 
 //# sourceMappingURL=index.3d214d75.js.map

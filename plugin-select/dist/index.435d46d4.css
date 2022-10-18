@@ -15,6 +15,7 @@ body {
 
 .select {
   width: 100%;
+  z-index: 100;
   position: relative;
 }
 
@@ -24,6 +25,10 @@ body {
 
 .select.open .select__input {
   border-bottom: none;
+}
+
+.select.open .select__backdrop {
+  display: block;
 }
 
 .select__input {
@@ -56,9 +61,21 @@ body {
   list-style: none;
 }
 
+.select__backdrop {
+  z-index: -1;
+  background: none;
+  display: none;
+  position: fixed;
+  inset: 0;
+}
+
 .select__item {
-  border: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
   padding: 1rem;
+}
+
+.select__item.selected {
+  background-color: bisque;
 }
 
 .select__item:hover {

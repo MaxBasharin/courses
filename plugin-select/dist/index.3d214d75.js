@@ -532,21 +532,137 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"bB7Pu":[function(require,module,exports) {
-var _selectJs = require("./select/select.js");
+var _select = require("./select/select");
 var _stylesScss = require("./select/styles.scss");
-const select = new (0, _selectJs.Select)("#select", {});
+const select = new (0, _select.Select)("#select", {
+    placeholder: "Выбери пожалуйста элемент",
+    // selectedId: '2',
+    data: [
+        {
+            id: "1",
+            value: "React"
+        },
+        {
+            id: "2",
+            value: "Angular"
+        },
+        {
+            id: "3",
+            value: "Vue"
+        },
+        {
+            id: "4",
+            value: "React Native"
+        },
+        {
+            id: "5",
+            value: "Next"
+        },
+        {
+            id: "6",
+            value: "Nest"
+        },
+        {
+            id: "7",
+            value: "CSS"
+        }, 
+    ],
+    onSelect (item) {
+        console.log("Selected Item", item);
+    }
+});
+// select.select('4')
+window.s = select;
 
-},{"./select/select.js":"izWns","./select/styles.scss":"i3B2h"}],"izWns":[function(require,module,exports) {
+},{"./select/styles.scss":"i3B2h","./select/select":"izWns"}],"i3B2h":[function() {},{}],"izWns":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Select", ()=>Select);
+const getTemplate = (data = [], placeholder, selectedId)=>{
+    let text = placeholder ?? "Placeholder по умолчанию";
+    const items = data.map((item)=>{
+        let cls = "";
+        if (item.id === selectedId) {
+            text = item.value;
+            cls = "selected";
+        }
+        return `
+      <li class="select__item ${cls}" data-type="item" data-id="${item.id}">${item.value}</li>
+    `;
+    });
+    return `
+    <div class="select__backdrop" data-type="backdrop"></div>
+    <div class="select__input" data-type="input">
+      <span data-type="value">${text}</span>
+      <i class="fa fa-chevron-down" data-type="arrow"></i>
+    </div>
+    <div class="select__dropdown">
+      <ul class="select__list">
+        ${items.join("")}
+      </ul>
+    </div>
+  `;
+};
 class Select {
     constructor(selector, options){
-        this.$el = document.querySelector(selector) //$ DOM элемент
-        ;
+        this.$el = document.querySelector(selector);
+        this.options = options;
+        this.selectedId = options.selectedId;
+        this.#render();
+        this.#setup();
     }
-    open() {}
-    close() {}
+     #render() {
+        const { placeholder , data  } = this.options;
+        this.$el.classList.add("select");
+        this.$el.innerHTML = getTemplate(data, placeholder, this.selectedId);
+    }
+     #setup() {
+        this.clickHandler = this.clickHandler.bind(this);
+        this.$el.addEventListener("click", this.clickHandler);
+        this.$arrow = this.$el.querySelector('[data-type="arrow"]');
+        this.$value = this.$el.querySelector('[data-type="value"]');
+    }
+    clickHandler(event) {
+        const { type  } = event.target.dataset;
+        if (type === "input") this.toggle();
+        else if (type === "item") {
+            const id = event.target.dataset.id;
+            this.select(id);
+        } else if (type === "backdrop") this.close();
+    }
+    get isOpen() {
+        return this.$el.classList.contains("open");
+    }
+    get current() {
+        return this.options.data.find((item)=>item.id === this.selectedId);
+    }
+    select(id) {
+        this.selectedId = id;
+        this.$value.textContent = this.current.value;
+        this.$el.querySelectorAll('[data-type="item"]').forEach((el)=>{
+            el.classList.remove("selected");
+        });
+        this.$el.querySelector(`[data-id="${id}"]`).classList.add("selected");
+        this.options.onSelect && this.options.onSelect(this.current);
+        this.close();
+    }
+    toggle() {
+        this.isOpen ? this.close() : this.open();
+    }
+    open() {
+        this.$el.classList.add("open");
+        this.$arrow.classList.remove("fa-chevron-down");
+        this.$arrow.classList.add("fa-chevron-up");
+    }
+    close() {
+        this.$el.classList.remove("open");
+        this.$arrow.classList.add("fa-chevron-down");
+        this.$arrow.classList.remove("fa-chevron-up");
+    }
+    destroy() {
+        this.$el.removeEventListener("click", this.clickHandler);
+        this.$el.innerHTML = "";
+    }
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
@@ -579,6 +695,6 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"i3B2h":[function() {},{}]},["awEvQ","bB7Pu"], "bB7Pu", "parcelRequire94c2")
+},{}]},["awEvQ","bB7Pu"], "bB7Pu", "parcelRequire94c2")
 
 //# sourceMappingURL=index.3d214d75.js.map

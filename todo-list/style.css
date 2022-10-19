@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+	--color-accent: #EA5959;
+	--color-Silver-Chalice: rgba(0, 0, 0, 0.3)
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Nunito', sans-serif;
+	background-color: var(--color-accent);
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	padding: 32px;
+	font-size: 18px;
+}
+
+.todo {
+	padding: 32px;
+	background-color: #F3F3F3;
+	border-radius: 8px;
+	width: 90vw;
+}
+
+.todo__new {
+	--size: 50px;
+	display: flex;
+	margin: 16px 0 32px;
+}
+
+.todo__new input{
+	max-width: 100%;
+	margin-right: 16px;
+	font-size: 18px;
+	padding: 8px 16px;
+	border-radius: 8px;
+	height: var(--size);
+	border: 1px solid var(--color-Silver-Chalice);
+	flex-grow: 1;
+}
+
+.todo__add {
+	color: #fff;
+	cursor: pointer;
+	font-size: 32px;
+	font-weight: 200px;
+	text-align: center;
+	border-radius: var(--size);
+	height: var(--size);
+	width: var(--size);
+	line-height: calc(var(--size) * 0.95);
+	border: 1px solid var(--color-Silver-Chalice);
+	background-color: var(--color-accent);
+}
+
+.todo__list > *:not(:last-child){ /* > * первый уровень вложенности И которые не последние элементы*/
+	margin-bottom: 8px;
+}
+
+.todo__task {
+	cursor: default;
+	--size: 36px;
+	min-height: var(--size);
+	display: flex;
+	align-items: center;
+}
+
+.todo__task_complete .todo__task-text{
+	text-decoration: line-through;
+	color: var(--color-Silver-Chalice);
+}
+
+.todo__task:hover .todo__task-del {
+	display: block;
+}
+.todo__checkbox {
+	margin-right: 16px;
+}
+.todo__checkbox input{
+	display: none;
+}
+
+.todo__checkbox input:checked + div{ /*+ означает следующий элемент после данного*/
+	background-color: var(--color-accent);
+}
+
+.todo__checkbox input:checked + div::after{ /*+ означает следующий элемент после данного*/
+	display: block;
+}
+
+.todo__checkbox div{
+	cursor: pointer;
+	--size: 28px;
+	height: var(--size);
+	width: var(--size);
+	border: 1px solid var(--color-accent);
+	border-radius: 4px;
+	position: relative;
+	color: white;
+}
+
+.todo__checkbox div::after {
+	content: '\2713';
+	color: #fff;
+	text-align: center;
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 10;
+}
+
+.todo__task-del {
+	display: none;
+	margin-left: auto;
+	margin-right: 0;
+	width: 35px;
+	height: 35px;
+	cursor: pointer;
+	border: 1px solid var(--color-Silver-Chalice);
+	border-radius: 50%;
+	position: relative;
+}
+
+.todo__task-del:before,
+.todo__task-del:after {
+    content: "";
+    position: absolute;
+		top: 16px;
+    left: 9px;
+    width: 16px;
+    height: 3px;
+    background: var(--color-accent);
+}
+
+.todo__task-del:before {
+    transform: rotate(45deg);
+}
+
+.todo__task-del:after {
+    transform: rotate(-45deg);
+}

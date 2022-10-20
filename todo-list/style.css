@@ -71,8 +71,7 @@ body {
 	align-items: center;
 }
 
-.todo__task_complete .todo__task-text{
-	text-decoration: line-through;
+.todo__task_complate .todo__task-text{
 	color: var(--color-Silver-Chalice);
 }
 

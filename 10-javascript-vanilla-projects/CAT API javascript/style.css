@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+	--index: calc(1vw + 1vh);
+}
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(166, 222, 255);
+    height: 100vh;
+    padding-top: calc(var(--index) * 15);
+}
+
+.container{
+    padding: 0 30px;
+    max-width: 800px;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.countdown {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: center;
+    font-size: calc(var(--index) / 1.175);
+    color: #fff;
+    min-width: 320px;
+}
+
+.countdown-item {
+    background-color: black;
+    padding: 6px;
+    min-width: 65px;
+}
